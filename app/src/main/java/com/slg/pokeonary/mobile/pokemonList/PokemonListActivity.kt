@@ -6,8 +6,12 @@ import com.slg.pokeonary.R
 
 class PokemonListActivity: Activity() {
 
+    val presenter = PokemonListPresenter(this)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pokemon_list)
+
+        presenter.onAttach()
     }
 }

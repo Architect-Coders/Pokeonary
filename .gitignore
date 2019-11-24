@@ -22,6 +22,7 @@ coverage.ec
 
 # IntelliJ
 .idea
+.idea/codeStyles/Project.xml
 .idea/gradle.xml
 .idea/assetWizardSettings.xml
 .idea/dictionaries
