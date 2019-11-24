@@ -9,7 +9,7 @@ class PokemonRemoteEntity(
     fun isValid() = name != null
 }
 
-private fun PokemonRemoteEntity.transformToDomain() = Pokemon(name!!, imageUrl!!)
+private fun PokemonRemoteEntity.transformToDomain() = Pokemon(name, imageUrl)
 
 fun List<PokemonRemoteEntity>.transformToDomain() =
     filter { it.isValid() }.map { it.transformToDomain() }
