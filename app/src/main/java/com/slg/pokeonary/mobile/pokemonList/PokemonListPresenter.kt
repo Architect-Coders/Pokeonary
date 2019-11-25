@@ -5,19 +5,23 @@ import com.slg.pokeonary.data.repository.pokemon.PokemonDataRepository
 import com.slg.pokeonary.data.repository.pokemon.dataSource.remote.PokemonRemoteDataSource
 import com.slg.pokeonary.domain.pokemon.useCase.GetPokemonList
 import com.slg.pokeonary.domain.pokemon.useCase.GetPokemonListParams
-import kotlinx.coroutines.GlobalScope
+import com.slg.pokeonary.mobile.common.Presenter
+import com.slg.pokeonary.mobile.pokemonList.model.PokemonViewEntity
+import com.slg.pokeonary.mobile.pokemonList.model.transformToUi
 import kotlinx.coroutines.launch
 
-class PokemonListPresenter(private val context: Context) {
+class PokemonListPresenter(private val context: Context): Presenter<PokemonListPresenter.PokemonListView>() {
 
     fun onAttach() {
         val getPokemonListUseCase = GetPokemonList(PokemonDataRepository(PokemonRemoteDataSource(context)))
-        GlobalScope.launch {
-            val list = getPokemonListUseCase.buildAsync(GetPokemonListParams(20, 20))
-            list.forEach { println(it.name) }
+        launch {
+            val pokemons = getPokemonListUseCase.buildAsync(GetPokemonListParams(0, 20))
+            view.showPokemonsList(pokemons.transformToUi())
         }
     }
 
-    inner class PokemonListView
+    interface PokemonListView: View {
+        fun showPokemonsList(pokemons: List<PokemonViewEntity>)
+    }
 }
 
