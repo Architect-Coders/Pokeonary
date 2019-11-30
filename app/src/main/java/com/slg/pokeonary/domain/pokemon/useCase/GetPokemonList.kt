@@ -6,7 +6,7 @@ import com.slg.pokeonary.domain.pokemon.model.Pokemon
 
 class GetPokemonList(
     private val pokemonRepository: PokemonRepository
-): UseCase<GetPokemonListParams, List<Pokemon>>() {
+) : UseCase<GetPokemonListParams, List<Pokemon>>() {
 
     override suspend fun buildAsync(params: GetPokemonListParams) =
         pokemonRepository.getPokemonListAsync(params.limit, params.offset)

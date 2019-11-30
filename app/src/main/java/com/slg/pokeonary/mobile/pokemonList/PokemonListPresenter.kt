@@ -10,18 +10,24 @@ import com.slg.pokeonary.mobile.pokemonList.model.PokemonViewEntity
 import com.slg.pokeonary.mobile.pokemonList.model.transformToUi
 import kotlinx.coroutines.launch
 
-class PokemonListPresenter(private val context: Context): Presenter<PokemonListPresenter.PokemonListView>() {
+class PokemonListPresenter(private val context: Context) :
+    Presenter<PokemonListPresenter.PokemonListView>() {
 
     fun onAttach() {
-        val getPokemonListUseCase = GetPokemonList(PokemonDataRepository(PokemonRemoteDataSource(context)))
+        val getPokemonListUseCase =
+            GetPokemonList(PokemonDataRepository(PokemonRemoteDataSource(context)))
         launch {
-            val pokemons = getPokemonListUseCase.buildAsync(GetPokemonListParams(0, 20))
+            val pokemons = getPokemonListUseCase.buildAsync(GetPokemonListParams(START, OFFSET))
             view.showPokemonsList(pokemons.transformToUi())
         }
     }
 
-    interface PokemonListView: View {
+    interface PokemonListView : View {
         fun showPokemonsList(pokemons: List<PokemonViewEntity>)
     }
-}
 
+    companion object {
+        const val START = 0
+        const val OFFSET = 20
+    }
+}
