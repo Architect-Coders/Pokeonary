@@ -54,7 +54,7 @@ number of packages: 12
 number of classes: 18
 </li>
 <li>
-number of functions: 22
+number of functions: 21
 </li>
 <li>
 number of properties: 8
@@ -62,7 +62,26 @@ number of properties: 8
 </ul>
 
 <h2>Findings</h2>
-
+<h3>style</h3>
+<div class="rule-container">
+<span class="rule">
+UnnecessaryAbstractClass
+</span>
+<span class="description">
+An abstract class is unnecessary and can be refactored. An abstract class should have both abstract and concrete properties or functions. An abstract class without a concrete member can be refactored to an interface. An abstract class without an abstract member can be refactored to a concrete class.
+</span>
+</div>
+<ul>
+<li>
+<span class="location">
+/Users/sergi/Documents/projects/Pokeonary/app/src/main/java/com/slg/pokeonary/domain/UseCase.kt:3:1
+</span>
+<br />
+<span class="message">
+An abstract class without a concrete member can be refactored to an interface.
+</span>
+</li>
+</ul>
 
 </body>
 </html>

@@ -10,8 +10,7 @@ import com.slg.pokeonary.mobile.pokemonList.model.PokemonViewEntity
 import com.slg.pokeonary.mobile.pokemonList.model.transformToUi
 import kotlinx.coroutines.launch
 
-class PokemonListPresenter(private val context: Context) :
-    Presenter<PokemonListPresenter.PokemonListView>() {
+class PokemonListPresenter(private val context: Context) : Presenter<PokemonListPresenter.PokemonListView>() {
 
     fun onAttach() {
         val getPokemonListUseCase =
