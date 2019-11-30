@@ -6,7 +6,7 @@ import com.slg.pokeonary.domain.pokemon.model.Pokemon
 
 class PokemonDataRepository(
     private val remoteDataSource: PokemonRemoteDataSource
-): PokemonRepository {
+) : PokemonRepository {
 
     override suspend fun getPokemonListAsync(limit: Int, offset: Int): List<Pokemon> =
         remoteDataSource.getPokemonListAsync(limit, offset)
