@@ -5,4 +5,11 @@ detekt {
     input = files("src/main/java")
     filters = ".*/resources/.*,.*/build/.*"
     //baseline = file("my-detekt-baseline.xml") // Just if you want to create a baseline file.
+
+    reports {
+        html {
+            enabled = true
+            destination = file("$rootDir/detekt_report.html")
+        }
+    }
 }
