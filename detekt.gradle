@@ -4,6 +4,7 @@ detekt {
     toolVersion = "1.0.0"
     input = files("src/main/java")
     filters = ".*/resources/.*,.*/build/.*"
+    config = files("$rootDir/detekt_config.yml")
     //baseline = file("my-detekt-baseline.xml") // Just if you want to create a baseline file.
 
     reports {
