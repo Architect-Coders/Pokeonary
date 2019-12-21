@@ -8,9 +8,9 @@ import com.slg.pokeonary.domain.pokemon.model.Pokemon
 
 class PokemonRemoteDataSource(private val context: Context) : PokemonDataSource {
 
-    override suspend fun getPokemonListAsync(limit: Int, offset: Int): List<Pokemon> =
+    override suspend fun getPokemonListAsync(start: Int, count: Int): List<Pokemon> =
         WebServiceProvider(context)
             .getWebService(PokemonApi::class.java)
-            .getPokemonListAsync(limit, offset)
+            .getPokemonListAsync(start, count)
             .transformToDomain()
 }

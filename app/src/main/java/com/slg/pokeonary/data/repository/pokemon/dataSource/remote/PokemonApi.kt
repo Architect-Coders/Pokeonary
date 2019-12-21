@@ -8,7 +8,7 @@ interface PokemonApi {
 
     @GET("api/v2/pokemon")
     suspend fun getPokemonListAsync(
-        @Query("limit") limit: Int,
-        @Query("offset") offset: Int
+        @Query("offset") start: Int,
+        @Query("limit") count: Int
     ): PokemonRemoteEntityWrapper
 }

@@ -8,6 +8,6 @@ class PokemonDataRepository(
     private val remoteDataSource: PokemonRemoteDataSource
 ) : PokemonRepository {
 
-    override suspend fun getPokemonListAsync(limit: Int, offset: Int): List<Pokemon> =
-        remoteDataSource.getPokemonListAsync(limit, offset)
+    override suspend fun getPokemonListAsync(start: Int, count: Int): List<Pokemon> =
+        remoteDataSource.getPokemonListAsync(start, count)
 }
