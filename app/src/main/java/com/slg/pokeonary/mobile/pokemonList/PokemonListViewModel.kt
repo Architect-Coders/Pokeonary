@@ -1,5 +1,6 @@
 package com.slg.pokeonary.mobile.pokemonList
 
+import android.app.Application
 import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -54,8 +55,8 @@ class PokemonListViewModel(private val context: Context) : CoroutineScope, ViewM
     }
 
     @Suppress("UNCHECKED_CAST")
-    class PokemonListViewModelFactory(private val context: Context) : ViewModelProvider.Factory {
+    class PokemonListViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-            PokemonListViewModel(context) as T
+            PokemonListViewModel(application) as T
     }
 }

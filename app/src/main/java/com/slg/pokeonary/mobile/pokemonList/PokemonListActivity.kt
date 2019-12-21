@@ -16,13 +16,13 @@ class PokemonListActivity : AppCompatActivity() {
 
         viewModel = ViewModelProviders.of(
             this,
-            PokemonListViewModel.PokemonListViewModelFactory(this)
+            PokemonListViewModel.PokemonListViewModelFactory(application)
         )[PokemonListViewModel::class.java]
 
         viewModel.model.observe(this, Observer(::updateUi))
     }
 
     private fun updateUi(uiModel: PokemonListViewModel.UiModel) {
-        //TODO
+        // TODO
     }
 }
