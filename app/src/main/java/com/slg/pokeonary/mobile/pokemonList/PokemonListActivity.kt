@@ -1,28 +1,28 @@
 package com.slg.pokeonary.mobile.pokemonList
 
-import android.app.Activity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.slg.pokeonary.R
-import com.slg.pokeonary.mobile.pokemonList.model.PokemonViewEntity
 
-class PokemonListActivity : Activity(), PokemonListPresenter.PokemonListView {
+class PokemonListActivity : AppCompatActivity() {
 
-    private val presenter by lazy { PokemonListPresenter(this) }
+    private lateinit var viewModel: PokemonListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_pokemon_list)
 
-        presenter.attachView(this)
-        presenter.onAttach()
+        viewModel = ViewModelProviders.of(
+            this,
+            PokemonListViewModel.PokemonListViewModelFactory(this)
+        )[PokemonListViewModel::class.java]
+
+        viewModel.model.observe(this, Observer(::updateUi))
     }
 
-    override fun onDestroy() {
-        presenter.detachView()
-        super.onDestroy()
-    }
-
-    override fun showPokemonsList(pokemons: List<PokemonViewEntity>) {
-        // TODO
+    private fun updateUi(uiModel: PokemonListViewModel.UiModel) {
+        //TODO
     }
 }
