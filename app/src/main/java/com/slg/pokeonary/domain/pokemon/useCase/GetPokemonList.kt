@@ -9,7 +9,7 @@ class GetPokemonList(
 ) : UseCase<GetPokemonListParams, List<Pokemon>>() {
 
     override suspend fun buildAsync(params: GetPokemonListParams) =
-        pokemonRepository.getPokemonListAsync(params.limit, params.offset)
+        pokemonRepository.getPokemonListAsync(params.start, params.count)
 }
 
-class GetPokemonListParams(val limit: Int, val offset: Int)
+class GetPokemonListParams(val start: Int, val count: Int)
