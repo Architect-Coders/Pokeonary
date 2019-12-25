@@ -25,6 +25,7 @@ class PokemonListViewModel(private val context: Context) : CoroutineScope, ViewM
         get() = Dispatchers.Main + job
 
     sealed class UiModel {
+        object Loading : UiModel()
         class Content(val pokemons: List<PokemonViewEntity>) : UiModel()
     }
 
@@ -39,6 +40,7 @@ class PokemonListViewModel(private val context: Context) : CoroutineScope, ViewM
         val getPokemonListUseCase =
             GetPokemonList(PokemonDataRepository(PokemonRemoteDataSource(context)))
         launch {
+            _model.value = UiModel.Loading
             val pokemons = getPokemonListUseCase.buildAsync(GetPokemonListParams(START, COUNT))
             _model.value = UiModel.Content(pokemons.transformToUi())
         }
@@ -55,7 +57,8 @@ class PokemonListViewModel(private val context: Context) : CoroutineScope, ViewM
     }
 
     @Suppress("UNCHECKED_CAST")
-    class PokemonListViewModelFactory(private val application: Application) : ViewModelProvider.Factory {
+    class PokemonListViewModelFactory(private val application: Application) :
+        ViewModelProvider.Factory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T =
             PokemonListViewModel(application) as T
     }
