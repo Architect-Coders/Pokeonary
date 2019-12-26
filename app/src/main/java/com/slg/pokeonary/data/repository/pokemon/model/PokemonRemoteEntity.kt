@@ -4,12 +4,12 @@ import com.slg.pokeonary.domain.pokemon.model.Pokemon
 
 class PokemonRemoteEntity(
     val name: String?,
-    val imageUrl: String?
+    val url: String?
 ) {
     fun isValid() = name != null
 }
 
-private fun PokemonRemoteEntity.transformToDomain() = Pokemon(name, imageUrl)
+private fun PokemonRemoteEntity.transformToDomain() = Pokemon(name, url)
 
 fun List<PokemonRemoteEntity>.transformToDomain() =
     filter { it.isValid() }.map { it.transformToDomain() }
