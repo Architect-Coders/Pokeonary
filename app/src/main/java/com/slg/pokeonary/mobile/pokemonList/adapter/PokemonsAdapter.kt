@@ -1,12 +1,11 @@
 package com.slg.pokeonary.mobile.pokemonList.adapter
 
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.slg.pokeonary.R
+import com.slg.pokeonary.mobile.common.inflate
+import com.slg.pokeonary.mobile.common.load
 import com.slg.pokeonary.mobile.pokemonList.model.PokemonViewEntity
 import kotlinx.android.synthetic.main.item_pokemon.view.*
 
@@ -37,11 +36,3 @@ class PokemonsAdapter : RecyclerView.Adapter<PokemonsAdapter.PokemonsViewHolder>
         }
     }
 }
-
-fun ImageView.load(url: String?) = Glide.with(context).load(url).into(this)
-
-fun ViewGroup.inflate(layoutId: Int, attachToRoot: Boolean = false): View =
-    LayoutInflater.from(context).inflate(
-        layoutId, this,
-        attachToRoot
-    )
