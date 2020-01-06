@@ -1,30 +1,38 @@
 package com.slg.pokeonary.mobile.pokemonList
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
+import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import com.slg.pokeonary.R
+import com.slg.pokeonary.mobile.common.inflate
 import com.slg.pokeonary.mobile.pokemonList.PokemonListViewModel.UiModel.Content
 import com.slg.pokeonary.mobile.pokemonList.PokemonListViewModel.UiModel.Loading
 import com.slg.pokeonary.mobile.pokemonList.adapter.PokemonsAdapter
 import kotlinx.android.synthetic.main.activity_pokemon_list.*
 
-class PokemonListActivity : AppCompatActivity() {
+class PokemonListFragment : Fragment() {
 
     private lateinit var viewModel: PokemonListViewModel
     private lateinit var pokemonsAdapter: PokemonsAdapter
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_pokemon_list)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return container?.inflate(R.layout.activity_pokemon_list, false)
+    }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProviders.of(
             this,
-            PokemonListViewModel.PokemonListViewModelFactory(application)
+            PokemonListViewModel.PokemonListViewModelFactory(activity!!.application)
         )[PokemonListViewModel::class.java]
 
         pokemonsAdapter = PokemonsAdapter()
@@ -35,8 +43,8 @@ class PokemonListActivity : AppCompatActivity() {
 
     private fun initializeRecyclerView() {
         recyclerView.adapter = pokemonsAdapter
-        val dividerDrawable = ContextCompat.getDrawable(this, R.drawable.recycler_view_divider)
-        recyclerView.addItemDecoration(DividerItemDecoration(this, DividerItemDecoration.VERTICAL)
+        val dividerDrawable = ContextCompat.getDrawable(context!!, R.drawable.recycler_view_divider)
+        recyclerView.addItemDecoration(DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
             .apply { dividerDrawable?.let { setDrawable(it) } })
     }
 
