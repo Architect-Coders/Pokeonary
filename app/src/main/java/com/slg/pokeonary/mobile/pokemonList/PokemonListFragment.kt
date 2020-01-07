@@ -47,9 +47,9 @@ class PokemonListFragment : Fragment() {
 
         viewModel.model.observe(this, Observer(::updateUi))
         viewModel.navigation.observe(this, Observer { event ->
-            event.getContentIfNotHandled()?.let { pokemonName ->
+            event.getContentIfNotHandled()?.let { pokemon ->
                 val action = PokemonListFragmentDirections
-                    .actionPokemonListFragmentToPokemonDetailFragment(pokemonName)
+                    .actionPokemonListFragmentToPokemonDetailFragment(pokemon)
                 navController.navigate(action)
             }
         })
