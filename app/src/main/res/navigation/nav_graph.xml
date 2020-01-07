@@ -7,5 +7,17 @@
     <fragment
         android:id="@+id/pokemonListFragment"
         android:name="com.slg.pokeonary.mobile.pokemonList.PokemonListFragment"
-        android:label="PokemonListFragment" />
+        android:label="PokemonListFragment" >
+        <action
+            android:id="@+id/action_pokemonListFragment_to_pokemonDetailFragment"
+            app:destination="@id/pokemonDetailFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/pokemonDetailFragment"
+        android:name="com.slg.pokeonary.mobile.pokemonDetail.PokemonDetailFragment"
+        android:label="PokemonDetailFragment" >
+        <argument
+            android:name="pokemonName"
+            app:argType="string" />
+    </fragment>
 </navigation>
