@@ -37,8 +37,8 @@ class PokemonListViewModel(private val context: Context) : CoroutineScope, ViewM
             return _model
         }
 
-    private val _navigation = MutableLiveData<Event<String>>()
-    val navigation: LiveData<Event<String>> = _navigation
+    private val _navigation = MutableLiveData<Event<PokemonViewEntity>>()
+    val navigation: LiveData<Event<PokemonViewEntity>> = _navigation
 
     private fun refresh() {
         val getPokemonListUseCase =
@@ -50,8 +50,8 @@ class PokemonListViewModel(private val context: Context) : CoroutineScope, ViewM
         }
     }
 
-    fun onPokemonClicked(pokemonName: String) {
-        _navigation.value = Event(pokemonName)
+    fun onPokemonClicked(pokemon: PokemonViewEntity) {
+        _navigation.value = Event(pokemon)
     }
 
     override fun onCleared() {

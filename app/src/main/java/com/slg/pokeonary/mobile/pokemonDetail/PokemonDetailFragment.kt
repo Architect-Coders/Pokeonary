@@ -23,6 +23,6 @@ class PokemonDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Toast.makeText(context, args.pokemonName, Toast.LENGTH_LONG).show()
+        Toast.makeText(context, args.pokemon.name, Toast.LENGTH_LONG).show()
     }
 }

@@ -9,7 +9,7 @@ import com.slg.pokeonary.mobile.common.load
 import com.slg.pokeonary.mobile.pokemonList.model.PokemonViewEntity
 import kotlinx.android.synthetic.main.item_pokemon.view.*
 
-class PokemonsAdapter(val onPokemonClicked: (String) -> Unit) :
+class PokemonsAdapter(val onPokemonClicked: (PokemonViewEntity) -> Unit) :
     RecyclerView.Adapter<PokemonsAdapter.PokemonsViewHolder>() {
 
     private val items = mutableListOf<PokemonViewEntity>()
@@ -33,10 +33,8 @@ class PokemonsAdapter(val onPokemonClicked: (String) -> Unit) :
 
         fun bind(item: PokemonViewEntity) = with(itemView) {
             pokemonImageView.load(item.imageUrl)
-            item.name?.let { pokemonName ->
-                nameTextView.text = pokemonName
-                setOnClickListener { onPokemonClicked(pokemonName) }
-            }
+            nameTextView.text = item.name
+            setOnClickListener { onPokemonClicked(item) }
         }
     }
 }

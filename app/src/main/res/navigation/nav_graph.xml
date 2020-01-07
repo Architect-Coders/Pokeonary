@@ -17,7 +17,7 @@
         android:name="com.slg.pokeonary.mobile.pokemonDetail.PokemonDetailFragment"
         android:label="PokemonDetailFragment" >
         <argument
-            android:name="pokemonName"
-            app:argType="string" />
+            android:name="pokemon"
+            app:argType="com.slg.pokeonary.mobile.pokemonList.model.PokemonViewEntity" />
     </fragment>
 </navigation>
