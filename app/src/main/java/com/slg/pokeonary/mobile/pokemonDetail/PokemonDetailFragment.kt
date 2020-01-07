@@ -9,6 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.slg.pokeonary.R
 import com.slg.pokeonary.mobile.common.inflate
+import com.slg.pokeonary.mobile.common.load
+import kotlinx.android.synthetic.main.fragment_pokemon_detail.*
 
 class PokemonDetailFragment : Fragment() {
 
@@ -23,6 +25,7 @@ class PokemonDetailFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Toast.makeText(context, args.pokemon.name, Toast.LENGTH_LONG).show()
+        pokemonImageView.load(args.pokemon.imageUrl)
+        pokemonName.text = args.pokemon.name
     }
 }

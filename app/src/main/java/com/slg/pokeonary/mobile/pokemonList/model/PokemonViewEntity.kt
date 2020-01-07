@@ -1,5 +1,6 @@
 package com.slg.pokeonary.mobile.pokemonList.model
 
+import android.annotation.SuppressLint
 import android.os.Parcel
 import android.os.Parcelable
 import com.slg.pokeonary.domain.pokemon.model.Pokemon
@@ -33,7 +34,9 @@ class PokemonViewEntity(
     }
 }
 
-private fun Pokemon.transformToUi() = PokemonViewEntity(name, getPokemonFrontSpriteFromUrl(url))
+@SuppressLint("DefaultLocale")
+private fun Pokemon.transformToUi() =
+    PokemonViewEntity(name?.capitalize(), getPokemonFrontSpriteFromUrl(url))
 
 fun List<Pokemon>.transformToUi() = map { it.transformToUi() }
 
