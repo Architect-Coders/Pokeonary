@@ -50,6 +50,10 @@ class PokemonListViewModel(private val context: Context) : CoroutineScope, ViewM
         }
     }
 
+    fun onPokemonClicked(pokemonName: String) {
+        _navigation.value = Event(pokemonName)
+    }
+
     override fun onCleared() {
         job.cancel()
         super.onCleared()
