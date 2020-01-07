@@ -41,14 +41,16 @@ class PokemonListFragment : Fragment() {
             PokemonListViewModel.PokemonListViewModelFactory(activity!!.application)
         )[PokemonListViewModel::class.java]
 
-        pokemonsAdapter = PokemonsAdapter()
+        pokemonsAdapter = PokemonsAdapter(viewModel::onPokemonClicked)
 
         initializeRecyclerView()
 
         viewModel.model.observe(this, Observer(::updateUi))
         viewModel.navigation.observe(this, Observer { event ->
             event.getContentIfNotHandled()?.let { pokemonName ->
-                // TODO
+                val action = PokemonListFragmentDirections
+                    .actionPokemonListFragmentToPokemonDetailFragment(pokemonName)
+                navController.navigate(action)
             }
         })
     }
