@@ -10,7 +10,11 @@
         android:label="PokemonListFragment" >
         <action
             android:id="@+id/action_pokemonListFragment_to_pokemonDetailFragment"
-            app:destination="@id/pokemonDetailFragment" />
+            app:destination="@id/pokemonDetailFragment"
+            app:enterAnim="@anim/translate_in"
+            app:exitAnim="@anim/fade_out"
+            app:popEnterAnim="@anim/fade_in"
+            app:popExitAnim="@anim/translate_out" />
     </fragment>
     <fragment
         android:id="@+id/pokemonDetailFragment"
