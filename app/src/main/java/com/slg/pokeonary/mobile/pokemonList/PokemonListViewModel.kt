@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import com.slg.pokeonary.data.repository.common.ServiceResultWrapper
 import com.slg.pokeonary.data.repository.pokemon.PokemonDataRepository
 import com.slg.pokeonary.data.repository.pokemon.dataSource.remote.PokemonRemoteDataSource
 import com.slg.pokeonary.domain.pokemon.useCase.GetPokemonList
@@ -45,8 +46,10 @@ class PokemonListViewModel(private val context: Context) : CoroutineScope, ViewM
             GetPokemonList(PokemonDataRepository(PokemonRemoteDataSource(context)))
         launch {
             _model.value = UiModel.Loading
-            val pokemons = getPokemonListUseCase.buildAsync(GetPokemonListParams(START, COUNT))
-            _model.value = UiModel.Content(pokemons.transformToUi())
+            when (val pokemons = getPokemonListUseCase.buildAsync(GetPokemonListParams(START, COUNT))) {
+                is ServiceResultWrapper.Success -> _model.value = pokemons.data?.transformToUi()?.let { UiModel.Content(it) }
+                is ServiceResultWrapper.Error -> _model.value = UiModel.Content(listOf())
+            }
         }
     }
 
