@@ -46,8 +46,11 @@ class PokemonListViewModel(private val context: Context) : CoroutineScope, ViewM
             GetPokemonList(PokemonDataRepository(PokemonRemoteDataSource(context)))
         launch {
             _model.value = UiModel.Loading
-            when (val pokemons = getPokemonListUseCase.buildAsync(GetPokemonListParams(START, COUNT))) {
-                is ServiceResultWrapper.Success -> _model.value = pokemons.data?.transformToUi()?.let { UiModel.Content(it) }
+            val pokemons = getPokemonListUseCase.buildAsync(GetPokemonListParams(START, COUNT))
+            when (pokemons) {
+                is ServiceResultWrapper.Success -> {
+                    _model.value = pokemons.data?.transformToUi()?.let { UiModel.Content(it) }
+                }
                 is ServiceResultWrapper.Error -> _model.value = UiModel.Content(listOf())
             }
         }

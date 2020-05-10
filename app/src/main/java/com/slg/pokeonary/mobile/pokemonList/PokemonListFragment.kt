@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -36,17 +36,17 @@ class PokemonListFragment : Fragment() {
 
         navController = view.findNavController()
 
-        viewModel = ViewModelProviders.of(
+        viewModel = ViewModelProvider(
             this,
-            PokemonListViewModel.PokemonListViewModelFactory(activity!!.application)
+            PokemonListViewModel.PokemonListViewModelFactory(requireActivity().application)
         )[PokemonListViewModel::class.java]
 
         pokemonsAdapter = PokemonsAdapter(viewModel::onPokemonClicked)
 
         initializeRecyclerView()
 
-        viewModel.model.observe(this, Observer(::updateUi))
-        viewModel.navigation.observe(this, Observer { event ->
+        viewModel.model.observe(viewLifecycleOwner, Observer(::updateUi))
+        viewModel.navigation.observe(viewLifecycleOwner, Observer { event ->
             event.getContentIfNotHandled()?.let { pokemon ->
                 val action = PokemonListFragmentDirections
                     .actionPokemonListFragmentToPokemonDetailFragment(pokemon)
@@ -57,7 +57,8 @@ class PokemonListFragment : Fragment() {
 
     private fun initializeRecyclerView() {
         recyclerView.adapter = pokemonsAdapter
-        val dividerDrawable = ContextCompat.getDrawable(context!!, R.drawable.recycler_view_divider)
+        val dividerDrawable =
+            ContextCompat.getDrawable(requireContext(), R.drawable.recycler_view_divider)
         recyclerView.addItemDecoration(
             DividerItemDecoration(
                 context,
