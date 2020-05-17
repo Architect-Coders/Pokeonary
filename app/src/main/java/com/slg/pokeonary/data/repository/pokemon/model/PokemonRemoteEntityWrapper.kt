@@ -5,8 +5,8 @@ import com.slg.pokeonary.domain.pokemon.model.Pokemon
 
 class PokemonRemoteEntityWrapper(val results: List<PokemonRemoteEntity>?)
 
-fun ServiceResultWrapper<PokemonRemoteEntityWrapper>.transformToDomain() : ServiceResultWrapper<List<Pokemon>> = when(this) {
-    is ServiceResultWrapper.Success -> ServiceResultWrapper.Success(data?.results?.transformToDomain() ?: listOf())
-    is ServiceResultWrapper.Error -> ServiceResultWrapper.Error(exception)
-}
-
+fun ServiceResultWrapper<PokemonRemoteEntityWrapper>.transformToDomain(): ServiceResultWrapper<List<Pokemon>> =
+    when (this) {
+        is ServiceResultWrapper.Success -> ServiceResultWrapper.Success(data?.results?.transformToDomain() ?: listOf())
+        is ServiceResultWrapper.Error -> ServiceResultWrapper.Error(exception)
+    }

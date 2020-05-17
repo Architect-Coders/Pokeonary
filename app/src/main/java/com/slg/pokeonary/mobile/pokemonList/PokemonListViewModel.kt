@@ -20,7 +20,7 @@ import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class PokemonListViewModel(private val context: Context) : CoroutineScope, ViewModel() {
+class PokemonListViewModel(private val getPokemons: GetPokemonList) : CoroutineScope, ViewModel() {
 
     private val job = SupervisorJob()
     override val coroutineContext: CoroutineContext
@@ -42,11 +42,9 @@ class PokemonListViewModel(private val context: Context) : CoroutineScope, ViewM
     val navigation: LiveData<Event<PokemonViewEntity>> = _navigation
 
     private fun refresh() {
-        val getPokemonListUseCase =
-            GetPokemonList(PokemonDataRepository(PokemonRemoteDataSource(context)))
         launch {
             _model.value = UiModel.Loading
-            val pokemons = getPokemonListUseCase.buildAsync(GetPokemonListParams(START, COUNT))
+            val pokemons = getPokemons.buildAsync(GetPokemonListParams(START, COUNT))
             when (pokemons) {
                 is ServiceResultWrapper.Success -> {
                     _model.value = pokemons.data?.transformToUi()?.let { UiModel.Content(it) }
@@ -68,12 +66,5 @@ class PokemonListViewModel(private val context: Context) : CoroutineScope, ViewM
     companion object {
         const val START = 0
         const val COUNT = 20
-    }
-
-    @Suppress("UNCHECKED_CAST")
-    class PokemonListViewModelFactory(private val application: Application) :
-        ViewModelProvider.Factory {
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-            PokemonListViewModel(application) as T
     }
 }

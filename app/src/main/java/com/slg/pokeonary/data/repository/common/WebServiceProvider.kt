@@ -1,13 +1,12 @@
 package com.slg.pokeonary.data.repository.common
 
-import android.content.Context
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class WebServiceProvider(val context: Context) {
+class WebServiceProvider(private val baseUrl: String) {
 
     fun <T> getWebService(service: Class<T>): T = Retrofit.Builder()
-        .baseUrl("https://pokeapi.co/")
+        .baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .build()
         .create(service)

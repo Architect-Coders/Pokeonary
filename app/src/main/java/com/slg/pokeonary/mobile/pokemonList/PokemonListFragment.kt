@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -17,11 +16,13 @@ import com.slg.pokeonary.mobile.pokemonList.PokemonListViewModel.UiModel.Content
 import com.slg.pokeonary.mobile.pokemonList.PokemonListViewModel.UiModel.Loading
 import com.slg.pokeonary.mobile.pokemonList.adapter.PokemonsAdapter
 import kotlinx.android.synthetic.main.activity_pokemon_list.*
+import org.koin.androidx.scope.lifecycleScope
+import org.koin.androidx.viewmodel.scope.viewModel
 
 class PokemonListFragment : Fragment() {
 
+    private val viewModel: PokemonListViewModel by lifecycleScope.viewModel(this)
     private lateinit var navController: NavController
-    private lateinit var viewModel: PokemonListViewModel
     private lateinit var pokemonsAdapter: PokemonsAdapter
 
     override fun onCreateView(
@@ -35,12 +36,6 @@ class PokemonListFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         navController = view.findNavController()
-
-        viewModel = ViewModelProvider(
-            this,
-            PokemonListViewModel.PokemonListViewModelFactory(requireActivity().application)
-        )[PokemonListViewModel::class.java]
-
         pokemonsAdapter = PokemonsAdapter(viewModel::onPokemonClicked)
 
         initializeRecyclerView()
