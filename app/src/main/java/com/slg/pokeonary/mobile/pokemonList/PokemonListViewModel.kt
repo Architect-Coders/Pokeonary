@@ -1,14 +1,9 @@
 package com.slg.pokeonary.mobile.pokemonList
 
-import android.app.Application
-import android.content.Context
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import com.slg.pokeonary.data.repository.common.ServiceResultWrapper
-import com.slg.pokeonary.data.repository.pokemon.PokemonDataRepository
-import com.slg.pokeonary.data.repository.pokemon.dataSource.remote.PokemonRemoteDataSource
 import com.slg.pokeonary.domain.pokemon.useCase.GetPokemonList
 import com.slg.pokeonary.domain.pokemon.useCase.GetPokemonListParams
 import com.slg.pokeonary.mobile.common.Event
